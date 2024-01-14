@@ -83,6 +83,7 @@ export const updateReservation = (params: UpdateReservation) => {
     }
   );
 };
+
 export const deleteReservation = (params: DeleteReservation) => {
   const id = params.reservation_id;
   db.query(
