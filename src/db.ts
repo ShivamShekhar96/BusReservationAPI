@@ -5,11 +5,12 @@ export const initDB = () => {
   if (_pool) {
   }
   _pool = new Pool({
-    user: process.env.DB_USER || "me",
-    host: process.env.DB_HOST || "localhost",
-    database: process.env.DB_URL || "api",
-    password: process.env.DB_PASSWORD || "password",
-    port: 5432,
+    connectionString: process.env.POSTGRES_URL + "?sslmode=require",
+    // user: process.env.DB_USER || "me",
+    // host: process.env.DB_HOST || "localhost",
+    // database: process.env.DB_URL || "api",
+    // password: process.env.DB_PASSWORD || "password",
+    // port: 5432,
   });
 };
 
