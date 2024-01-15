@@ -1,4 +1,4 @@
-import { getDB } from "../db";
+import getPool from "../db";
 import {
   CreateReservation,
   DeleteReservation,
@@ -8,7 +8,7 @@ import {
   UpdateReservation,
 } from "../utils/interface/reservation.interface";
 
-const db = getDB();
+const db = getPool();
 const CANCEL_STATUS = "cancelled";
 const CONFIRM_STATUS = "confirmed";
 

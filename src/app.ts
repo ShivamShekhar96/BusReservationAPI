@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import * as bodyParser from "body-parser";
 import routesV1 from "./routes/routes.v1";
-import { initDB } from "./db";
+import getPool from "./db";
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.use(routesV1);
 
 const port = process.env.PORT || 4000;
 
-initDB();
+const db = getPool();
 
 app.get("/", (req, res) => {
   res.send("Successful response.");

@@ -1,7 +1,7 @@
-import { getDB } from "../db";
+import getPool from "../db";
 import { GetUserById } from "../utils/interface/user.interface";
 
-const db = getDB();
+const db = getPool();
 
 // export const deleteUser = (params) => {
 //   const id = parseInt(params.id);
