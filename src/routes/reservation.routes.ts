@@ -14,7 +14,7 @@ router.get(
   "/reservations/:id",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const reqReservation = await getReservationById({
+      const reqReservation = getReservationById({
         reservation_id: parseInt(req.params.id),
       });
       res.status(200).json({ reqReservation });
@@ -32,7 +32,7 @@ router.get(
         bus_id: parseInt(req.params.bus_id),
         status: [req.params.status],
       };
-      const reqReservations = await getReservations(payload);
+      const reqReservations = getReservations(payload);
       res.status(200).json({ reqReservations });
     } catch (error) {
       next(error);
@@ -52,7 +52,7 @@ router.post(
         },
         seat_id: parseInt(req.params.seat_id),
       };
-      const newReservation = await createReservation(payload);
+      const newReservation = createReservation(payload);
       res.json({ newReservation });
     } catch (error) {
       next(error);
@@ -72,7 +72,7 @@ router.put(
         },
         reservation_id: parseInt(req.params.id),
       };
-      const response = await updateReservation(payload);
+      const response = updateReservation(payload);
       res.json({ response });
     } catch (error) {
       next(error);
@@ -87,7 +87,7 @@ router.delete(
       const payload = {
         reservation_id: parseInt(req.params.id),
       };
-      const response = await deleteReservation(payload);
+      const response = deleteReservation(payload);
       res.json({ response });
     } catch (error) {
       next(error);
@@ -99,7 +99,7 @@ router.post(
   "/reservations/reset",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const response = await resetReservations(req.params);
+      const response = resetReservations(req.params);
       res.json({ response });
     } catch (error) {
       next(error);

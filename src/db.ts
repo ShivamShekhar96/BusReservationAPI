@@ -3,14 +3,15 @@ import { Pool } from "pg";
 let _pool: any;
 export const initDB = () => {
   if (_pool) {
+    alert('DB instance already exists.')
+    return;
   }
   _pool = new Pool({
-    connectionString: process.env.POSTGRES_URL + "?sslmode=require",
-    // user: process.env.DB_USER || "me",
-    // host: process.env.DB_HOST || "localhost",
-    // database: process.env.DB_URL || "api",
-    // password: process.env.DB_PASSWORD || "password",
-    // port: 5432,
+    user: process.env.DB_USER || "me",
+    host: process.env.DB_HOST || "localhost",
+    database: process.env.DB_URL || "api",
+    password: process.env.DB_PASSWORD || "password",
+    port: 5432,
   });
 };
 
