@@ -8,4 +8,4 @@ const api = Router()
   .use(userController)
   .use(healthCheckController);
 
-export default Router().use("/api", api);
+export default Router().use("/api/v1/", api);
