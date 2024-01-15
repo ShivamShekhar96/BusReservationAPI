@@ -17,7 +17,7 @@ router.get(
       const reqReservation = await getReservationById({
         reservation_id: parseInt(req.params.id),
       });
-      res.json({ reqReservation });
+      res.status(200).json({ reqReservation });
     } catch (error) {
       next(error);
     }
@@ -33,7 +33,7 @@ router.get(
         status: [req.params.status],
       };
       const reqReservations = await getReservations(payload);
-      res.json({ reqReservations });
+      res.status(200).json({ reqReservations });
     } catch (error) {
       next(error);
     }
