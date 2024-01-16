@@ -14,10 +14,10 @@ router.get(
   "/reservations/:id",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const reqReservation = await getReservationById({
+      const data = await getReservationById({
         reservation_id: parseInt(req.params.id),
       });
-      res.status(200).json({ reqReservation });
+      res.status(200).json({ data });
     } catch (error) {
       next(error);
     }
@@ -32,8 +32,8 @@ router.get(
         bus_id: parseInt(req.params.bus_id),
         status: [req.params.status],
       };
-      const reqReservations = getReservations(payload);
-      res.status(200).json({ reqReservations });
+      const data = await getReservations(payload);
+      res.status(200).json({ data });
     } catch (error) {
       next(error);
     }
@@ -52,8 +52,8 @@ router.post(
         },
         seat_id: parseInt(req.params.seat_id),
       };
-      const newReservation = createReservation(payload);
-      res.json({ newReservation });
+      const data = await createReservation(payload);
+      res.json({ data });
     } catch (error) {
       next(error);
     }
@@ -72,8 +72,8 @@ router.put(
         },
         reservation_id: parseInt(req.params.id),
       };
-      const response = updateReservation(payload);
-      res.json({ response });
+      const data = await updateReservation(payload);
+      res.json({ data });
     } catch (error) {
       next(error);
     }
@@ -87,8 +87,8 @@ router.delete(
       const payload = {
         reservation_id: parseInt(req.params.id),
       };
-      const response = deleteReservation(payload);
-      res.json({ response });
+      const data = await deleteReservation(payload);
+      res.json({ data });
     } catch (error) {
       next(error);
     }
@@ -99,8 +99,8 @@ router.post(
   "/reservations/reset",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const response = resetReservations(req.params);
-      res.json({ response });
+      const data = await resetReservations(req.params);
+      res.json({ data });
     } catch (error) {
       next(error);
     }

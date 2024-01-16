@@ -10,8 +10,8 @@ router.get(
       const payload = {
         user_id: parseInt(req.params.id),
       };
-      const user = await getUserById(payload);
-      res.json({ user });
+      const data = await getUserById(payload);
+      res.json({ data });
     } catch (error) {
       next(error);
     }

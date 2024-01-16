@@ -14,15 +14,11 @@ const db = getPool();
 //   });
 // };
 
-export const getUserById = (params: GetUserById) => {
+export const getUserById = async (params: GetUserById) => {
   const id = params.user_id;
 
-  db.query("SELECT * FROM users WHERE id = $1", [id], (error, results) => {
-    if (error) {
-      throw error;
-    }
-    return results.rows[0];
-  });
+  const results = await db.query("SELECT * FROM public.users WHERE id = $1", [id]);
+  return results.rows[0];
 };
 
 // export const createUser = (params) => {
