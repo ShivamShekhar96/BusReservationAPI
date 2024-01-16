@@ -25,19 +25,15 @@ export const getReservations = (params: GetReservations) => {
   });
 };
 
-export const getReservationById = (params: GetReservationById) => {
+export const getReservationById = async (params: GetReservationById) => {
   const id = params.reservation_id;
-  console.log(id, db)
-  db.query(
+  console.log(id, db);
+  const result = await db.query(
     "SELECT * FROM public.reservations WHERE id = $1",
-    [id],
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      return results.rows[0];
-    }
+    [id]
   );
+  console.log(result, result.rows)
+  return result.rows
 };
 
 // TODO: status is hardcoded to confirmed. convert to dynamic. [0: pending, 1: confirmed, 2: cancelled]
