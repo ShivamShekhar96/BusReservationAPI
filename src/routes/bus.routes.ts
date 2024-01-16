@@ -1,4 +1,4 @@
-import { getAllBuses } from "controllers/bus.controller";
+import { getAllBuses } from "../controllers/bus.controller";
 import { Router, Request, Response, NextFunction } from "express";
 
 const router = Router();
