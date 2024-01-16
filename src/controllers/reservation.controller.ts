@@ -16,7 +16,7 @@ export const getReservations = async (params: GetReservations) => {
   let status = [CONFIRM_STATUS, CANCEL_STATUS];
   if (params.status) status = params.status;
   const query =
-    "SELECT * FROM public.reservations r JOIN public.seats s ON s.id = r.seat_id WHERE s.bus_id = $1 AND status in ($2) ORDER BY created_at ASC";
+    "SELECT * FROM public.reservations WHERE bus_id = $1 AND status in ($2) ORDER BY created_at ASC";
   const results = await db.query(query, [params.bus_id, status.toString()]);
   return results.rows;
 };
