@@ -51,6 +51,7 @@ router.post(
           last_name: req.params.last_name,
         },
         seat_id: parseInt(req.params.seat_id),
+        bus_id: parseInt(req.params.bus_id)
       };
       const data = await createReservation(payload);
       res.json({ data });

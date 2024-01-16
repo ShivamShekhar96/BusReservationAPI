@@ -32,13 +32,13 @@ export const getReservationById = async (params: GetReservationById) => {
 
 // TODO: status is hardcoded to confirmed. convert to dynamic. [0: pending, 1: confirmed, 2: cancelled]
 export const createReservation = async (params: CreateReservation) => {
-  const { seat_id, passenger_details } = params;
+  const { seat_id, passenger_details, bus_id } = params;
   let booking_user_id: number | null = null;
   if (params.booking_user_id)
     booking_user_id = parseInt(params.booking_user_id.toString());
   const result = await db.query(
-    "INSERT INTO public.reservations (seat_id, passenger_data, booking_user_id, status) VALUES ($1, $2) RETURNING *",
-    [seat_id, passenger_details, booking_user_id, CONFIRM_STATUS]
+    "INSERT INTO public.reservations (seat_id, passenger_data, booking_user_id, status, bus_id) VALUES ($1, $2) RETURNING *",
+    [seat_id, passenger_details, booking_user_id, CONFIRM_STATUS, bus_id]
   );
   return `New reservation created with ID ${result.id}`;
 };
