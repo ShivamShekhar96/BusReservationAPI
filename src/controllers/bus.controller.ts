@@ -1,4 +1,4 @@
-import getPool from "db";
+import getPool from "../db";
 
 const db = getPool();
 
