@@ -27,7 +27,7 @@ export const getReservations = (params: GetReservations) => {
 
 export const getReservationById = (params: GetReservationById) => {
   const id = params.reservation_id;
-
+  console.log(id, db)
   db.query(
     "SELECT * FROM reservations WHERE id = $1",
     [id],
