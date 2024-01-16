@@ -1,5 +1,5 @@
 import { Router, Response, Request, NextFunction } from "express";
-import { getUserById } from "../controllers/user.controller";
+import { createUser, getUserById } from "../controllers/user.controller";
 
 const router = Router();
 
@@ -18,17 +18,23 @@ router.get(
   }
 );
 
-// router.post(
-//   "/users/",
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     try {
-//       const profile = await createUser(req.params);
-//       res.json({ profile });
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
+router.post(
+  "/users/",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const payload = {
+        email: req.body.email,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        phone: req.body.phone,
+      };
+      const profile = await createUser(payload);
+      res.json({ profile });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 // router.put(
 //   "/users/:id",

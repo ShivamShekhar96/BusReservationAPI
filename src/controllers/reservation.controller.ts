@@ -7,6 +7,7 @@ import {
   ResetReservation,
   UpdateReservation,
 } from "../utils/interface/reservation.interface";
+import { createUser } from "./user.controller";
 
 const db = getPool();
 const CANCEL_STATUS = "cancelled";
@@ -40,6 +41,7 @@ export const createReservation = async (params: CreateReservation) => {
     "INSERT INTO public.reservations (seat_id, passenger_data, booking_user_id, stage, bus_id) VALUES ($1, $2, $3, $4, $5) RETURNING id",
     [seat_id, passenger_details, booking_user_id, CONFIRM_STATUS, bus_id]
   );
+  // if (!!passenger_details.email) createUser(passenger_details);
   if (result.rows.length > 0)
     await db.query("UPDATE public.seats SET status = $1 WHERE id = $2", [
       "booked",

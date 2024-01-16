@@ -26,3 +26,7 @@ export interface DeleteReservation {
 export interface ResetReservation {
   bus_id: number;
 }
+
+export interface GetReservationUser {
+  reservation_id: number
+}
