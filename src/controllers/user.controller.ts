@@ -17,7 +17,7 @@ const db = getPool();
 export const getUserById = async (params: GetUserById) => {
   const id = params.user_id;
 
-  const results = await db.query("SELECT * FROM public.users WHERE id = $1", [id]);
+  const results = await db.query("SELECT id, email, first_name, last_name, phone FROM public.users WHERE id = $1", [id]);
   return results.rows[0];
 };
 

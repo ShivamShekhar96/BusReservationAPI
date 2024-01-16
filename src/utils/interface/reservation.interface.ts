@@ -1,6 +1,6 @@
 export interface GetReservations {
   bus_id: number;
-  status: Array<string>;
+  stage: string;
 }
 
 export interface GetReservationById {
@@ -8,7 +8,7 @@ export interface GetReservationById {
 }
 
 export interface UpdateReservation {
-  update_details: { email?: string; first_name?: string; last_name?: string };
+  passenger_data: { email?: string; first_name?: string; last_name?: string };
   reservation_id: number;
 }
 
@@ -24,5 +24,5 @@ export interface DeleteReservation {
 }
 
 export interface ResetReservation {
-  bus_id?: number;
+  bus_id: number;
 }

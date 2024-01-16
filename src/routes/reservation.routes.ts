@@ -29,8 +29,8 @@ router.get(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const payload = {
-        bus_id: parseInt(req.params.bus_id),
-        status: [req.params.status],
+        bus_id: parseInt(req.query.bus_id as string),
+        stage: req.query.stage as string,
       };
       const data = await getReservations(payload);
       res.status(200).json({ data });
@@ -45,13 +45,9 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const payload = {
-        passenger_details: {
-          email: req.params.email,
-          first_name: req.params.first_name,
-          last_name: req.params.last_name,
-        },
-        seat_id: parseInt(req.params.seat_id),
-        bus_id: parseInt(req.params.bus_id)
+        passenger_details: req.body.passenger_details as any,
+        seat_id: parseInt(req.body.seat_id),
+        bus_id: parseInt(req.body.bus_id),
       };
       const data = await createReservation(payload);
       res.json({ data });
@@ -66,11 +62,7 @@ router.put(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const payload = {
-        update_details: {
-          email: req.params.email,
-          first_name: req.params.first_name,
-          last_name: req.params.last_name,
-        },
+        passenger_data: req.body.passenger_data,
         reservation_id: parseInt(req.params.id),
       };
       const data = await updateReservation(payload);
@@ -100,7 +92,11 @@ router.post(
   "/reservations/reset",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const data = await resetReservations(req.params);
+      const payload = {
+        bus_id: parseInt(req.query.bus_id as string)
+      }
+      
+      const data = await resetReservations(payload);
       res.json({ data });
     } catch (error) {
       next(error);
