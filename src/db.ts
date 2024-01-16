@@ -12,7 +12,6 @@ const createPool = () => {
     database: process.env.DB_NAME || "api",
     password: process.env.DB_PASSWORD || "password",
     port: 5432,
-    ssl: true,
   });
   return pool;
 };
