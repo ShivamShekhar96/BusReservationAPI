@@ -14,7 +14,7 @@ router.get(
   "/reservations/:id",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const reqReservation = getReservationById({
+      const reqReservation = await getReservationById({
         reservation_id: parseInt(req.params.id),
       });
       res.status(200).json({ reqReservation });
