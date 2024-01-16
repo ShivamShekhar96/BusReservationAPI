@@ -31,16 +31,19 @@ export const getReservationById = async (params: GetReservationById) => {
   return result.rows[0];
 };
 
-const existingReservation = async (params: any) => {
+const checkExistingReservation = async (params: any) => {
   const result = await db.query(
     "SELECT id FROM public.reservations WHERE seat_id=$1 AND stage=$2",
-    [params.seat_id, "confirmed"]
+    [params.seat_id, CONFIRM_STATUS]
   );
-  return result.rows.length > 0;
+
+  return result.rows[0];
 };
 // TODO: status is hardcoded to confirmed. convert to dynamic.
 export const createReservation = async (params: CreateReservation) => {
-  if (existingReservation(params.seat_id)) return "Seat already reserved.";
+  const existingReservation = await checkExistingReservation(params.seat_id);
+  if (existingReservation)
+    return `Seat already reserved with reservation id ${existingReservation.id}`;
   const { seat_id, passenger_data, bus_id } = params;
   let booking_user_id: number | null = null;
   if (params.booking_user_id)
