@@ -29,7 +29,7 @@ export const getReservationById = (params: GetReservationById) => {
   const id = params.reservation_id;
   console.log(id, db)
   db.query(
-    "SELECT * FROM reservations WHERE id = $1",
+    "SELECT * FROM public.reservations WHERE id = $1",
     [id],
     (error, results) => {
       if (error) {
