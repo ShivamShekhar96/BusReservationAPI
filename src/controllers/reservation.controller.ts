@@ -31,17 +31,25 @@ export const getReservationById = async (params: GetReservationById) => {
   return result.rows[0];
 };
 
+const existingReservation = async (params: any) => {
+  const result = await db.query(
+    "SELECT id FROM public.reservations WHERE seat_id=$1 AND stage=$2",
+    [params.seat_id, "confirmed"]
+  );
+  return result.rows.length > 0;
+};
 // TODO: status is hardcoded to confirmed. convert to dynamic.
 export const createReservation = async (params: CreateReservation) => {
-  const { seat_id, passenger_details, bus_id } = params;
+  if (existingReservation(params.seat_id)) return "Seat already reserved.";
+  const { seat_id, passenger_data, bus_id } = params;
   let booking_user_id: number | null = null;
   if (params.booking_user_id)
     booking_user_id = parseInt(params.booking_user_id.toString());
   const result = await db.query(
     "INSERT INTO public.reservations (seat_id, passenger_data, booking_user_id, stage, bus_id) VALUES ($1, $2, $3, $4, $5) RETURNING id",
-    [seat_id, passenger_details, booking_user_id, CONFIRM_STATUS, bus_id]
+    [seat_id, passenger_data, booking_user_id, CONFIRM_STATUS, bus_id]
   );
-  // if (!!passenger_details.email) createUser(passenger_details);
+  // if (!!passenger_data.email) createUser(passenger_data);
   if (result.rows.length > 0)
     await db.query("UPDATE public.seats SET status = $1 WHERE id = $2", [
       "booked",

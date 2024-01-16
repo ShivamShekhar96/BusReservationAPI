@@ -45,7 +45,7 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const payload = {
-        passenger_details: req.body.passenger_details as any,
+        passenger_data: req.body.passenger_data as any,
         seat_id: parseInt(req.body.seat_id),
         bus_id: parseInt(req.body.bus_id),
       };

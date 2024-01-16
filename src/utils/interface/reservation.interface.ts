@@ -13,7 +13,7 @@ export interface UpdateReservation {
 }
 
 export interface CreateReservation {
-  passenger_details: { email: string; first_name: string; last_name: string };
+  passenger_data: { email: string; first_name: string; last_name: string };
   seat_id: number;
   bus_id: number;
   booking_user_id?: number;
